@@ -1,7 +1,7 @@
 <div id="wrapper">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -58,8 +58,10 @@
         <!-- /.navbar-static-side -->
     </nav>
 
-    <div id="page-wrapper">
-        <router-outlet></router-outlet>
+    <div id="page-wrapper" class="container">
+        <div class="row">
+            <router-outlet></router-outlet>
+        </div>
     </div>
     <!-- /#page-wrapper -->
 
