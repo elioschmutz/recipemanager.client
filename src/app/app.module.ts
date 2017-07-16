@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoutingModule } from './app-routing.module';
 import { FormsModule }   from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 // Materialdesign Components
 import { MdInputModule } from '@angular/material';
@@ -19,9 +20,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
-import { AuthenticationService } from './_services/authentication.service';
+import { AuthenticationService } from './_services';
 import { AdminAuthGuard, MemberAuthGuard } from './_guards/index';
-
+import { ConfigService } from './_services';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AdminAuthGuard, MemberAuthGuard } from './_guards/index';
     BrowserModule,
     BrowserAnimationsModule,
     RoutingModule,
+    HttpClientModule,
     FormsModule,
     MdInputModule,
     MdCardModule,
@@ -43,6 +45,7 @@ import { AdminAuthGuard, MemberAuthGuard } from './_guards/index';
   ],
   providers: [
     AuthenticationService,
+    ConfigService,
     AdminAuthGuard,
     MemberAuthGuard
   ],

@@ -21,14 +21,17 @@ export class LoginComponent implements OnInit {
 
   login() {
       this.loading = true;
-      this.authenticationService.login(this.username, this.password).then(() => {
+      this.authenticationService.login(this.username, this.password).subscribe((data) => {
           this.loading = false;
           this.invalid = false;
+          console.log('logged in');
           this.router.navigate(['/dashboard']);
-      }, () => {
+      }, (error) => {
+          console.log('new error:');
           this.loading = false;
           this.invalid = true;
       });
+
   }
 
 }

@@ -3,13 +3,15 @@
     <md-card>
         <md-card-title>Login</md-card-title>
         <md-card-content>
-            <form (ngSubmit)="login()" #f="ngForm">
+            <form (ngSubmit)="f.form.valid && login()" #f="ngForm">
               <div *ngIf="invalid" class="alert alert-danger" role="alert">Username or password is invalid</div>
               <md-input-container>
-                  <input mdInput [disabled]="loading" [(ngModel)]="username" name="username" placeholder="Username" value="">
+                  <input mdInput [disabled]="loading" [(ngModel)]="username" required name="username" placeholder="Username" value="">
+                  <md-error>This field is required</md-error>
               </md-input-container>
               <md-input-container>
-                <input mdInput mdInput [disabled]="loading" [(ngModel)]="password" name="password"   type="password" placeholder="Password" value="">
+                <input mdInput mdInput [disabled]="loading" [(ngModel)]="password" required name="password"   type="password" placeholder="Password" value="">
+                <md-error>This field is required</md-error>
                 </md-input-container>
                 <button [disabled]="loading" md-raised-button color="primary" type="submit">Login</button>
                 <button md-button routerLink="/registration">No account? Register now!</button>

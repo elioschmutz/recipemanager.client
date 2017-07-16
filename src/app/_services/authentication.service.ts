@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
 import { User } from '../_models/user';
+import { ConfigService } from './config.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
 
 @Injectable()
 export class AuthenticationService {
@@ -11,31 +15,29 @@ export class AuthenticationService {
   private authenticated: boolean = false;
   private user: User = null;
 
-  constructor() {  }
+  constructor(private http: HttpClient,
+              private config: ConfigService) {  }
 
   logout() {
       this.authenticated = false;
       this.user = null;
-  }
-  login(username: string, password: string): Promise<User> {
-      return new Promise((resolve, reject) => {
-          let self = this;
-          setTimeout(function() {
-              if (username == "max" && password == "test") {
-                  self.authenticated = true;
-                  self.user = {
-                      _id: 1234,
-                      username: 'max',
-                      firstName: 'Max',
-                      lastName: 'Muster',
-                      role: 'member',
-                  }
-
-                  resolve(self.user);
-              }
-              reject();
-          }, 1500);
+      this.http.post(this.config.getApiEndpoint('logout'), {}).subscribe((data) => {
+          console.log(data);
       });
+  }
+  login(username: string, password: string): Observable<User> {
+      let loginRequest = this.http.post(this.config.getApiEndpoint('login'), {
+          username: username,
+          password: password,
+      })
+      loginRequest = loginRequest.do(
+          (user: User) => {
+              this.authenticated = true;
+              this.user = user;
+          }
+       );
+
+      return loginRequest;
   }
   isAuthenticated() {
       return this.authenticated;
