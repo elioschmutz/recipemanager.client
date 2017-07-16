@@ -17,9 +17,11 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 import { AuthenticationService } from './_services/authentication.service';
 import { AdminAuthGuard, MemberAuthGuard } from './_guards/index';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { AdminAuthGuard, MemberAuthGuard } from './_guards/index';
     PageNotFoundComponent,
     DashboardComponent,
     LoginComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,
