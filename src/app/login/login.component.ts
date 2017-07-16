@@ -17,14 +17,13 @@ export class LoginComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
               private router: Router) { }
 
-  ngOnInit() {
-      console.log(this.authenticationService.authenticated);
-  }
-
+  ngOnInit() {}
 
   login() {
       this.loading = true;
       this.authenticationService.login(this.username, this.password).then(() => {
+          this.loading = false;
+          this.invalid = false;
           this.router.navigate(['/dashboard']);
       }, () => {
           this.loading = false;

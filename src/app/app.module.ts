@@ -19,6 +19,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 
 import { AuthenticationService } from './_services/authentication.service';
+import { AdminAuthGuard, MemberAuthGuard } from './_guards/index';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,8 @@ import { AuthenticationService } from './_services/authentication.service';
   ],
   providers: [
     AuthenticationService,
+    AdminAuthGuard,
+    MemberAuthGuard
   ],
   bootstrap: [AppComponent]
 })
