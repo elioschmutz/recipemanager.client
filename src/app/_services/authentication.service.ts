@@ -4,6 +4,7 @@ import { User } from '../_models/user';
 import { ConfigService } from './config.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthenticationService {
@@ -25,11 +26,12 @@ export class AuthenticationService {
           console.log(data);
       });
   }
+
   login(username: string, password: string): Observable<User> {
       let loginRequest = this.http.post(this.config.getApiEndpoint('login'), {
           username: username,
           password: password,
-      })
+      }, {withCredentials: true})
       loginRequest = loginRequest.do(
           (user: User) => {
               this.authenticated = true;
@@ -46,6 +48,6 @@ export class AuthenticationService {
       return this.isAuthenticated() && this.userRoles.admin.includes(this.user.role);
   }
   isMember() {
-      return this.isAuthenticated() && this.userRoles.admin.includes(this.user.role);
+      return this.isAuthenticated() && this.userRoles.member.includes(this.user.role);
   }
 }
