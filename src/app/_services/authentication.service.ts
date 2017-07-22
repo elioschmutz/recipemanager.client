@@ -13,18 +13,14 @@ export class AuthenticationService {
       admin: ['member', 'admin'],
       member: ['member']
   }
-  private authenticated: boolean = false;
   private user: User = null;
 
   constructor(private http: HttpClient,
               private config: ConfigService) {  }
 
   logout() {
-      this.authenticated = false;
       this.user = null;
-      this.http.post(this.config.getApiEndpoint('logout'), {}).subscribe((data) => {
-          console.log(data);
-      });
+      return this.http.post(this.config.getApiEndpoint('logout'), {});
   }
 
   login(username: string, password: string): Observable<User> {
@@ -34,7 +30,6 @@ export class AuthenticationService {
       }, {withCredentials: true})
       loginRequest = loginRequest.do(
           (user: User) => {
-              this.authenticated = true;
               this.user = user;
           }
        );
@@ -42,7 +37,7 @@ export class AuthenticationService {
       return loginRequest;
   }
   isAuthenticated() {
-      return this.authenticated;
+      return this.user !== null;
   }
   isAdmin() {
       return this.isAuthenticated() && this.userRoles.admin.includes(this.user.role);
