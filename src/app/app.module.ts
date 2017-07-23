@@ -5,6 +5,7 @@ import { RoutingModule } from './app-routing.module';
 import { FormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Materialdesign Components
 import { MdInputModule } from '@angular/material';
@@ -27,6 +28,7 @@ import { AdminAuthGuard, MemberAuthGuard } from './_guards/index';
 import { ConfigService } from './_services';
 import { StartupService } from './_services';
 
+import { WithCredentialsInterceptor } from './_interceptors';
 
 export function startupServiceFactory(startupService: StartupService): Function {
     return () => startupService.load();
@@ -55,10 +57,15 @@ export function startupServiceFactory(startupService: StartupService): Function 
   providers: [
     StartupService,
     {
-    provide: APP_INITIALIZER,
-    useFactory: startupServiceFactory,
-    deps: [StartupService],
-    multi: true
+      provide: APP_INITIALIZER,
+      useFactory: startupServiceFactory,
+      deps: [StartupService],
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: WithCredentialsInterceptor,
+      multi: true,
     },
     AuthenticationService,
     ConfigService,

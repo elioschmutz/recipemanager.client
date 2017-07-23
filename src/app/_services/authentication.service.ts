@@ -27,7 +27,7 @@ export class AuthenticationService {
       let loginRequest = this.http.post(this.config.getApiEndpoint('login'), {
           username: username,
           password: password,
-      }, {withCredentials: true})
+      })
       loginRequest = loginRequest.do(
           (user: User) => {
               this.user = user;
@@ -50,7 +50,7 @@ export class AuthenticationService {
     * Resets the current user with the current cookie.
     */
   resetUser(): Observable<User> {
-      let resetUserRequest = this.http.get(this.config.getApiEndpoint('currentUser'), {withCredentials: true});
+      let resetUserRequest = this.http.get(this.config.getApiEndpoint('currentUser'));
       resetUserRequest = resetUserRequest.do(
           (user: User) => {
               this.user = user;
