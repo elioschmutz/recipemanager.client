@@ -45,7 +45,9 @@ export class AuthenticationService {
   isMember(): boolean {
       return this.isAuthenticated() && this.userRoles.member.includes(this.user.role);
   }
-
+  getCurrentUser(): User{
+      return this.user;
+  }
   /**
     * Resets the current user with the current cookie.
     */
