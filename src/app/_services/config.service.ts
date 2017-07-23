@@ -15,6 +15,7 @@ export class ConfigService {
       apiEndpoints: {
           login: 'authentication/login',
           logout: 'authentication/logout',
+          currentUser: 'api/current_user',
           register: 'api/users/register',
           allUsers: 'api/users',
       },

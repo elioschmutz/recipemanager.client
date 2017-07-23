@@ -18,7 +18,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient,
               private config: ConfigService) {  }
 
-  logout() {
+  logout(): Observable<object> {
       this.user = null;
       return this.http.post(this.config.getApiEndpoint('logout'), {});
   }
@@ -36,13 +36,28 @@ export class AuthenticationService {
 
       return loginRequest;
   }
-  isAuthenticated() {
+  isAuthenticated(): boolean {
       return this.user !== null;
   }
-  isAdmin() {
+  isAdmin(): boolean {
       return this.isAuthenticated() && this.userRoles.admin.includes(this.user.role);
   }
-  isMember() {
+  isMember(): boolean {
       return this.isAuthenticated() && this.userRoles.member.includes(this.user.role);
   }
+
+  /**
+    * Resets the current user with the current cookie.
+    */
+  resetUser(): Observable<User> {
+      let resetUserRequest = this.http.get(this.config.getApiEndpoint('currentUser'), {withCredentials: true});
+      resetUserRequest = resetUserRequest.do(
+          (user: User) => {
+              this.user = user;
+          }
+       );
+
+      return resetUserRequest;
+  }
+
 }

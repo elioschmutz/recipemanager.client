@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoutingModule } from './app-routing.module';
 import { FormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER } from '@angular/core';
 
 // Materialdesign Components
 import { MdInputModule } from '@angular/material';
@@ -24,7 +25,12 @@ import { LogoutComponent } from './logout/logout.component';
 import { AuthenticationService } from './_services';
 import { AdminAuthGuard, MemberAuthGuard } from './_guards/index';
 import { ConfigService } from './_services';
+import { StartupService } from './_services';
 
+
+export function startupServiceFactory(startupService: StartupService): Function {
+    return () => startupService.load();
+}
 
 @NgModule({
   declarations: [
@@ -47,10 +53,17 @@ import { ConfigService } from './_services';
     MdProgressBarModule,
   ],
   providers: [
+    StartupService,
+    {
+    provide: APP_INITIALIZER,
+    useFactory: startupServiceFactory,
+    deps: [StartupService],
+    multi: true
+    },
     AuthenticationService,
     ConfigService,
     AdminAuthGuard,
-    MemberAuthGuard
+    MemberAuthGuard,
   ],
   bootstrap: [AppComponent]
 })
