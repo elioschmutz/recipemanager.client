@@ -6,7 +6,30 @@
 </div>
 <!-- /.row -->
 <div class="row">
-    <div class="col-lg-3 col-md-6">
+     <form (ngSubmit)="f.form.valid && createCategory()" #f="ngForm">
+     <div class="col-md-3">
+      <md-input-container>
+          <input mdInput [disabled]="loading" [(ngModel)]="newCategoryTitle" name="newCategoryTitle" placeholder="Title" value="">
+          <md-error>This field is required</md-error>
+      </md-input-container>
+      </div>
+      <div class="col-md-3">
+      <button [disabled]="loading" md-raised-button color="primary" type="submit">Add category</button>
+      </div>
+    </form>
+</div>
 
+<div class="row">
+    <div class="col-md-3" *ngFor="let category of categories; let i=index">
+        <div class="categoryPanel">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                {{category.title}} <span class="badge">0</span>
+                <div class="controls">
+                    <span (click)="removeCategory(category, index)" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
 </div>

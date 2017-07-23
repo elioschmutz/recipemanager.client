@@ -27,6 +27,7 @@ import { AuthenticationService } from './_services';
 import { AdminAuthGuard, MemberAuthGuard } from './_guards/index';
 import { ConfigService } from './_services';
 import { StartupService } from './_services';
+import { CategoryService } from './_services';
 
 import { WithCredentialsInterceptor } from './_interceptors';
 
@@ -71,6 +72,7 @@ export function startupServiceFactory(startupService: StartupService): Function 
     ConfigService,
     AdminAuthGuard,
     MemberAuthGuard,
+    CategoryService,
   ],
   bootstrap: [AppComponent]
 })

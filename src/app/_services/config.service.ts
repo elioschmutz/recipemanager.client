@@ -18,6 +18,9 @@ export class ConfigService {
           currentUser: 'api/current_user',
           register: 'api/users/register',
           allUsers: 'api/users',
+          allCategories: 'api/categories',
+          addCategory: 'api/categories',
+          removeCategory: 'api/categories',
       },
   }
   private prodConfig: AppConfiguration = {

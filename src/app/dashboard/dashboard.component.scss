@@ -1,0 +1,9 @@
+.categoryPanel {
+    cursor: pointer;
+    .panel:hover {
+        background-color: darken(white, 10);
+    }
+    .controls {
+        float: right;
+    }
+}
