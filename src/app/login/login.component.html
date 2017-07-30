@@ -1,21 +1,41 @@
-<div class="col-xs-12 col-md-4 col-md-offset-4 loginWindow fullscreenModal">
-    <md-progress-bar *ngIf="loading" mode="indeterminate"></md-progress-bar>
-    <md-card>
-        <md-card-title>Login</md-card-title>
-        <md-card-content>
-            <form (ngSubmit)="f.form.valid && login()" #f="ngForm">
-              <div *ngIf="invalid" class="alert alert-danger" role="alert">Username or password is invalid</div>
-              <md-input-container>
-                  <input mdInput [disabled]="loading" [(ngModel)]="username" required name="username" placeholder="Username" value="">
-                  <md-error>This field is required</md-error>
-              </md-input-container>
-              <md-input-container>
-                <input mdInput mdInput [disabled]="loading" [(ngModel)]="password" required name="password"   type="password" placeholder="Password" value="">
-                <md-error>This field is required</md-error>
-                </md-input-container>
-                <button [disabled]="loading" md-raised-button color="primary" type="submit">Login</button>
-                <button md-button routerLink="/registration">No account? Register now!</button>
+<div class="container">
+<div class="row">
+<div class="col s12 m6 push-m3">
+    <div *ngIf="loading" class="progress">
+      <div class="indeterminate"></div>
+    </div>
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Login</span>
+            <form (ngSubmit)="validateForm(true) && login()" [formGroup]="form" novalidate>
+                <div *ngIf="invalid"  id="card-alert" class="card red lighten-5">
+                      <div class="card-content red-text">
+                        <p>Username or password is invalid</p>
+                    </div>
+                </div>
+              <div class="input-field">
+                  <input required
+                         type="email"
+                         id="email"
+                         formControlName="email"
+                         [ngClass]="{ 'invalid': formErrors.errors.hasOwnProperty('email') }">
+
+                   <label for="email" [attr.data-error]="formErrors.errors.email">E-Mail</label>
+              </div>
+              <div class="input-field">
+                  <input required
+                         id="password"
+                         type="password"
+                         formControlName="password"
+                         [ngClass]="{ 'invalid': formErrors.errors.hasOwnProperty('password') }">
+                   <label for="password" [attr.data-error]="formErrors.errors.password">Password</label>
+              </div>
+
+              <button [disabled]="loading" class="btn waves-effect waves-light" type="submit">Sign in!</button>
+              <button class="btn-flat waves-effect" routerLink="/registration">Sign up!</button>
             </form>
-        </md-card-content>
-    </md-card>
+        </div>
+    </div>
+</div>
+</div>
 </div>

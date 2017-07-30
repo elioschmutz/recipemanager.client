@@ -1,25 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~variables.scss";
 
-.top-buffer { margin-top:20px; }
+@media #{$medium-and-up} {
+  .container {
+    width: $container-width-medium !important;
+  }
+}
+@media #{$large-and-up} {
+  .container {
+    width: $container-width-large !important;
+  }
+}
 
-
-login, registration {
-    background-color: #FFF;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
+// Fix bug in input field error message
+label.active {
     width: 100%;
-    z-index: 2000;
-
-    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-    min-height: 100vh; /* These two lines are counted as one :-)       */
-
-    display: flex;
-    align-items: center;
-
-    md-input-container {
-        width: 100%;
-    }
 }

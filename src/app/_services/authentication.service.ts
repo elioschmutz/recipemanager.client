@@ -61,5 +61,9 @@ export class AuthenticationService {
 
       return resetUserRequest;
   }
+  register(data): Observable<User> {
+      let registerRequest = this.http.post(this.config.getApiEndpoint('register'), data)
+      return registerRequest;
+  }
 
 }
