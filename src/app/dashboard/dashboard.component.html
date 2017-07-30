@@ -1,32 +1,37 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col s12">
         <h1 class="page-header">Hello {{user.firstName}}!</h1>
     </div>
-    <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
 <div class="row">
-     <form (ngSubmit)="f.form.valid && createCategory()" #f="ngForm">
-     <div class="col-md-3">
-      <!-- <md-input-container>
-          <input mdInput [disabled]="loading" [(ngModel)]="newCategoryTitle" name="newCategoryTitle" placeholder="Title" value="">
-      </md-input-container> -->
-      </div>
-      <div class="col-md-3">
-      <button [disabled]="loading" md-raised-button color="primary" type="submit">Add category</button>
+    <div class="col s12 m5">
+     <a (click)="toggleEditMode()" [ngClass]="{ 'hide': editMode}" class="waves-effect waves-light btn"><i class="material-icons left">edit</i> Edit categories</a>
+     <form [ngClass]="{ 'hide': !editMode}" (ngSubmit)="validateForm(true) && createCategory()" [formGroup]="addCategoryForm" novalidate>
+        <div class="input-field">
+          <input id="title"
+                 type="text"
+                 formControlName="title"
+                 [ngClass]="{ 'invalid': addCategoryFormErrors.errors.hasOwnProperty('title') }">
+        <label for="title">Category name</label>
+        </div>
+      <div class="m3">
+      <button [disabled]="loading" class="btn waves-effect waves-light" type="submit"><i class="material-icons left">add</i> Add category</button>
+      <a (click)="toggleEditMode()" class="waves-effect waves-light btn-flat">Abort</a>
       </div>
     </form>
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-md-3" *ngFor="let category of categories; let i=index">
+    <div class="col s12 m4" *ngFor="let category of categories; let i=index">
         <div class="categoryPanel">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                {{category.title}} <span class="badge">0</span>
-                <div class="controls">
-                    <span (click)="removeCategory(category, index)" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <div class="card">
+                <div class="card-content">
+                    <span class="badge">1</span>{{category.title}}
                 </div>
+                <div [ngClass]="{ 'hide': !editMode}" class="card-action">
+                  <i (click)="removeCategory(category, index)" class="material-icons">delete</i>
               </div>
             </div>
         </div>
