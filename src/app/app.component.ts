@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from './_services';
+import { User } from './_models';
 declare var $ :any;
 
 @Component({
@@ -8,9 +10,13 @@ declare var $ :any;
 })
 export class AppComponent implements OnInit {
   title = 'app';
+  user: User;
+
+  constructor(private authenticationService: AuthenticationService) {  }
 
   ngOnInit() {
-    $(".button-collapse").sideNav({menuWidth: 250});
-    $(".dropdown-button").dropdown();
+      this.user = this.authenticationService.getCurrentUser();
+      $(".button-collapse").sideNav({menuWidth: 250});
+      $(".dropdown-button").dropdown();
   }
 }

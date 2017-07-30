@@ -30,7 +30,7 @@ export class AuthenticationService {
       })
       loginRequest = loginRequest.do(
           (user: User) => {
-              this.user = user;
+              this.user = new User().setUserData(user);
           }
        );
 
@@ -55,7 +55,7 @@ export class AuthenticationService {
       let resetUserRequest = this.http.get(this.config.getApiEndpoint('currentUser'));
       resetUserRequest = resetUserRequest.do(
           (user: User) => {
-              this.user = user;
+              this.user = new User().setUserData(user);
           }
        );
 
