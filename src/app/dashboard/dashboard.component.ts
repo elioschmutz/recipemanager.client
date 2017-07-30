@@ -6,43 +6,43 @@ import { Category } from '../_models';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService,
-              private categoryService: CategoryService) {
+    constructor(private authenticationService: AuthenticationService,
+        private categoryService: CategoryService) {
 
-  }
+    }
 
-  private newCategoryTitle: String = '';
-  private user: User = null;
-  private categories: Array<Category> = null;
+    private newCategoryTitle: String = '';
+    private user: User = null;
+    private categories: Array<Category> = null;
 
-  ngOnInit() {
-      this.user = this.authenticationService.getCurrentUser();
-      this.categoryService.getAll().subscribe((data) => {
-          this.categories = data;
-      });
-  }
+    ngOnInit() {
+        this.user = this.authenticationService.getCurrentUser();
+        this.categoryService.getAll().subscribe((data) => {
+            this.categories = data;
+        });
+    }
 
-  createCategory() {
-      this.categoryService.createOne(this.newCategoryTitle).subscribe(
-          (data) => {
-              this.categories.push(data);
-          }, (error) => {
+    createCategory() {
+        this.categoryService.createOne(this.newCategoryTitle).subscribe(
+            (data) => {
+                this.categories.push(data);
+            }, (error) => {
 
-          }, () => {
-              this.newCategoryTitle = '';
-          });
-  }
+            }, () => {
+                this.newCategoryTitle = '';
+            });
+    }
 
-  removeCategory(category, index) {
-      this.categories.splice(index, 1);
-      this.categoryService.remove(category._id).subscribe(
-          (data) => {
-      }, (error) => { console.log(error) });;
-  }
+    removeCategory(category, index) {
+        this.categories.splice(index, 1);
+        this.categoryService.remove(category._id).subscribe(
+            (data) => {
+            }, (error) => { console.log(error) });;
+    }
 }
